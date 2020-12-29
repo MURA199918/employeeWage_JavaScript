@@ -491,15 +491,11 @@ console.log("Welcome to employee Wage problem");
     console.log("UC11D - NonWorkingDayNums: "+nonWorkingDayNums);
 }
 
-//UC11, UC12 and UC13 - Classes for EmployeePayrollData with Regex and Error
+//UC11, UC12, UC13 and UC14 - Classes for EmployeePayrollData with Regex, conditions and Errors
 {
     class EmployeePayrollData{
         //property
-        id;
-        salary;
-        gender;
-        startDate;
-
+       
         //constructor
         constructor(...params){
             this.id = params[0];
@@ -510,6 +506,15 @@ console.log("Welcome to employee Wage problem");
         }
         
         //getter and setter method
+        get id() { return this._id; }
+        set id(id) {
+            if(id>=0){
+                this._id = id;
+            }else{
+                throw 'Id is Incorrect';
+            }
+        }
+
         get name() { return this._name; }
         set name(name) {
             let nameRegex = RegExp('^[A-Z]{1}[a-z]{3,}$');
@@ -517,6 +522,34 @@ console.log("Welcome to employee Wage problem");
                 this._name = name;
             }else{
                 throw 'Name is Incorrect';
+            }
+        }
+
+        get salary() { return this._salary; }
+        set salary(salary) {
+            if(salary>=0){
+                this._salary = salary;
+            }else{
+                throw 'Salary is Incorrect';
+            }
+        }
+
+        get gender() { return this._gender; }
+        set gender(gender) {
+            if(gender=='M' || gender=='F'){
+                this._gender = gender;
+            }else{
+                throw 'Gender is Invalid';
+            }
+        }
+
+        get startDate() { return this._startDate; }
+        set startDate(startDate) {
+            let dNow = new Date();
+            if(dNow.getTime() >= startDate.getTime()){
+                this._startDate = startDate;
+            }else{
+                throw 'Date is Invalid';
             }
         }
 
@@ -530,7 +563,7 @@ console.log("Welcome to employee Wage problem");
         }
     }
 
-    let employeePayrollData = new EmployeePayrollData(1, "Mark", 30000);
+    let employeePayrollData = new EmployeePayrollData(1, "Mark", 30000, "M", new Date());
     console.log(employeePayrollData.toString());
     try{
         employeePayrollData.name = "john";
